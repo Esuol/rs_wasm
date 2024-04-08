@@ -1,6 +1,6 @@
 mod utils;
+use std::fmt;
 
-use std::{fmt, slice::Windows};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -89,6 +89,14 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
+                log!(
+                    "log: cell[{}, {}] is initially {:?} and has {} live neighbors",
+                    row,
+                    col,
+                    cell,
+                    live_neighbors
+                );
+
                 let next_cell = match (cell, live_neighbors) {
                     (Cell::Alive, x) if x < 2 => Cell::Dead,
                     (Cell::Alive, 2) | (Cell::Alive, 3) => Cell::Alive,
@@ -96,6 +104,8 @@ impl Universe {
                     (Cell::Dead, 3) => Cell::Alive,
                     (otherwise, _) => otherwise,
                 };
+
+                log!(" log:   it becomes {:?}", next_cell);
 
                 next[idx] = next_cell;
             }
