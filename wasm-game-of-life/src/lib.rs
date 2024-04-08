@@ -1,6 +1,6 @@
 mod utils;
 
-use std::fmt;
+use std::{fmt, slice::Windows};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -95,6 +95,16 @@ impl Universe {
 
     pub fn render(&self) -> String {
         self.to_string()
+    }
+
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        self.cells = (0..width * self.height).map(|_| Cell::Dead).collect();
+    }
+
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        self.cells = (0..self.width * height).map(|_| Cell::Dead).collect();
     }
 }
 
