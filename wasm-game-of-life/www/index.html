@@ -6,14 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wasmer Markdown Editor</title>
     <script type="module" defer src="./src/index.ts"></script>
-    <link rel="stylesheet" href="./src/style.css">
+    <style>
+        body {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
 </head>
 
 <body>
-    <div class="editor-container">
-        <textarea id="markdown-input" placeholder="Type your Markdown here..."></textarea>
-        <iframe id="html-output"></iframe>
-    </div>
+    <pre id="game-of-life-canvas"></pre>
 </body>
 
 </html>

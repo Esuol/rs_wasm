@@ -92,6 +92,10 @@ impl Universe {
 
         self.cells = next;
     }
+
+    pub fn render(&self) -> String {
+        self.to_string()
+    }
 }
 
 impl fmt::Display for Universe {

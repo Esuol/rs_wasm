@@ -1,3 +1,15 @@
-import * as wasm from 'wasm-game-of-life';
+import { Universe } from '../../pkg/wasm_game_of_life';
 
-wasm.greet('berlin is cool');
+const pre = document.getElementById('game-of-life-canvas');
+
+const universe = Universe.new();
+
+const renderLoop = () => {
+  // @ts-ignore
+  pre.textContent = universe.render();
+  universe.tick();
+
+  requestAnimationFrame(renderLoop);
+};
+
+requestAnimationFrame(renderLoop);
