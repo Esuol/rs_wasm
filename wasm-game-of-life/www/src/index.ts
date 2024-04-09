@@ -45,6 +45,7 @@ const getIndex = (row, column) => {
 
 const drawCells = () => {
   const cellsPtr = universe.cells();
+  console.log(memory.buffer, cellsPtr);
   const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
 
   ctx.beginPath();
@@ -111,3 +112,25 @@ playPauseButton.addEventListener('click', () => {
     pause();
   }
 });
+
+canvas?.addEventListener('click', (event) => {
+  const boundingRect = canvas.getBoundingClientRect();
+
+  // @ts-ignore
+  const scaleX = canvas?.width / boundingRect.width;
+  // @ts-ignore
+  const scaleY = canvas?.height / boundingRect.height;
+
+  const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
+  const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+
+  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
+  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
+  universe.toggle_cell(row, col);
+
+  drawGrid();
+  drawCells();
+});
+
+play();
